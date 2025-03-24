@@ -2,6 +2,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:zenan/common/widgets/custom_favourite_widget.dart';
 import 'package:zenan/common/widgets/custom_ink_well_widget.dart';
+import 'package:zenan/features/category/screens/fason_screen.dart';
 import 'package:zenan/features/home/widgets/arrow_icon_button_widget.dart';
 import 'package:zenan/features/home/widgets/icon_with_text_row_widget.dart';
 import 'package:zenan/features/language/controllers/localization_controller.dart';
@@ -63,11 +64,14 @@ class PopularRestaurantsViewWidget extends StatelessWidget {
                                         fontWeight: FontWeight.w600),
                                   ),
                                   ArrowIconButtonWidget(onTap: () {
-                                    Get.toNamed(
-                                        RouteHelper.getAllRestaurantRoute(
-                                            isRecentlyViewed
-                                                ? 'recently_viewed'
-                                                : 'popular'));
+                                    Get.to(FasonScreen(
+                                        categoryID: '6',
+                                        categoryName: 'Tikinchi'));
+                                    // Get.toNamed(
+                                    //     RouteHelper.getAllRestaurantRoute(
+                                    //         isRecentlyViewed
+                                    //             ? 'recently_viewed'
+                                    //             : 'popular'));
                                   }),
                                 ]),
                           )
@@ -89,18 +93,21 @@ class PopularRestaurantsViewWidget extends StatelessWidget {
                                         fontWeight: FontWeight.w600),
                                   ),
                                   ArrowIconButtonWidget(onTap: () {
-                                    PersistentNavBarNavigator.pushNewScreen(
-                                      context,
-                                      screen: AllRestaurantScreen(
-                                        isPopular:
-                                            Get.parameters['page'] == 'popular',
-                                        isRecentlyViewed:
-                                            Get.parameters['page'] ==
-                                                'recently_viewed',
-                                        isOrderAgain: Get.parameters['page'] ==
-                                            'order_again',
-                                      ),
-                                    );
+                                    Get.to(FasonScreen(
+                                        categoryID: '6',
+                                        categoryName: 'Tikinchi'));
+                                    // PersistentNavBarNavigator.pushNewScreen(
+                                    //   context,
+                                    //   screen: AllRestaurantScreen(
+                                    //     isPopular:
+                                    //         Get.parameters['page'] == 'popular',
+                                    //     isRecentlyViewed:
+                                    //         Get.parameters['page'] ==
+                                    //             'recently_viewed',
+                                    //     isOrderAgain: Get.parameters['page'] ==
+                                    //         'order_again',
+                                    //   ),
+                                    // );
 
                                     // Get.toNamed(
                                     //     RouteHelper.getAllRestaurantRoute(

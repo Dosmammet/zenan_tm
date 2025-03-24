@@ -385,6 +385,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       const HomeScreen(),
       FasonScreen(categoryID: '6', categoryName: 'Tikinchi'),
       //const FavouriteScreen(),
+
       const MenuScreen()
     ];
 

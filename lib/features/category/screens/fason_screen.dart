@@ -1,22 +1,21 @@
 import 'package:zenan/common/models/product_model.dart';
 import 'package:zenan/common/models/restaurant_model.dart';
-import 'package:zenan/common/widgets/product_view_widget.dart';
 import 'package:zenan/common/widgets/product_view_widget_pinterest.dart';
 import 'package:zenan/common/widgets/search_text_field.dart';
 import 'package:zenan/features/category/controllers/category_controller.dart';
 import 'package:zenan/features/category/controllers/fason_category_controller.dart';
+import 'package:zenan/features/category/domain/services/category_service.dart';
+import 'package:zenan/features/category/domain/services/category_service_interface.dart';
 import 'package:zenan/features/search/screens/search_screen.dart';
-import 'package:zenan/helper/responsive_helper.dart';
-import 'package:zenan/helper/route_helper.dart';
 import 'package:zenan/util/dimensions.dart';
 import 'package:zenan/util/styles.dart';
-import 'package:zenan/common/widgets/cart_widget.dart';
 import 'package:zenan/common/widgets/footer_view_widget.dart';
-import 'package:zenan/common/widgets/menu_drawer_widget.dart';
-import 'package:zenan/common/widgets/veg_filter_widget.dart';
-import 'package:zenan/common/widgets/web_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+class CategoryControllerScreen2 extends CategoryController {
+  CategoryControllerScreen2({required super.categoryServiceInterface});
+}
 
 class FasonScreen extends StatefulWidget {
   final String? categoryID;
@@ -37,30 +36,35 @@ class FasonScreenState extends State<FasonScreen>
   @override
   void initState() {
     super.initState();
+    CategoryServiceInterface categoryServiceInterface =
+        CategoryService(categoryRepositoryInterface: Get.find());
+    Get.lazyPut(() => categoryServiceInterface);
+    final CategoryControllerScreen2 categoryController = Get.put(
+        CategoryControllerScreen2(categoryServiceInterface: Get.find()));
     _scrollController = ScrollController();
     _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
-    Get.find<FasonCategoryController>().getSubCategoryList(widget.categoryID);
+    Get.find<CategoryControllerScreen2>().getSubCategoryList(widget.categoryID);
     scrollController.addListener(() {
       print('AAAAAAAAAAAAAAAAAAAAA');
       if (scrollController.position.pixels ==
               scrollController.position.maxScrollExtent &&
-          Get.find<FasonCategoryController>().categoryProductList != null &&
-          !Get.find<FasonCategoryController>().isLoading) {
+          Get.find<CategoryControllerScreen2>().categoryProductList != null &&
+          !Get.find<CategoryControllerScreen2>().isLoading) {
         int pageSize =
-            (Get.find<FasonCategoryController>().pageSize! / 10).ceil();
-        if (Get.find<FasonCategoryController>().offset < pageSize) {
+            (Get.find<CategoryControllerScreen2>().pageSize! / 10).ceil();
+        if (Get.find<CategoryControllerScreen2>().offset < pageSize) {
           debugPrint('end of the page');
-          Get.find<FasonCategoryController>().showBottomLoader();
-          Get.find<FasonCategoryController>().getCategoryProductList(
-            Get.find<FasonCategoryController>().subCategoryIndex == 0
+          Get.find<CategoryControllerScreen2>().showBottomLoader();
+          Get.find<CategoryControllerScreen2>().getCategoryProductList(
+            Get.find<CategoryControllerScreen2>().subCategoryIndex == 0
                 ? widget.categoryID
-                : Get.find<FasonCategoryController>()
+                : Get.find<CategoryControllerScreen2>()
                     .subCategoryList![
-                        Get.find<FasonCategoryController>().subCategoryIndex]
+                        Get.find<CategoryControllerScreen2>().subCategoryIndex]
                     .id
                     .toString(),
-            Get.find<FasonCategoryController>().offset + 1,
-            Get.find<FasonCategoryController>().type,
+            Get.find<CategoryControllerScreen2>().offset + 1,
+            Get.find<CategoryControllerScreen2>().type,
             false,
           );
         }
@@ -78,7 +82,7 @@ class FasonScreenState extends State<FasonScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FasonCategoryController>(builder: (catController) {
+    return GetBuilder<CategoryControllerScreen2>(builder: (catController) {
       List<Product>? products;
       List<Restaurant>? restaurants;
       if (catController.categoryProductList != null &&
@@ -110,7 +114,7 @@ class FasonScreenState extends State<FasonScreen>
               SliverAppBar(
                 // pinned: true,
                 floating: true,
-
+                automaticallyImplyLeading: false,
                 expandedHeight: 130, // Adjust based on UI needs
                 backgroundColor: Theme.of(context).colorScheme.background,
                 flexibleSpace: FlexibleSpaceBar(

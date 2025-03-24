@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:zenan/features/auth/controllers/auth_controller.dart';
-import 'package:zenan/features/category/controllers/fason_category_controller.dart';
 
 import 'package:zenan/features/dashboard/domain/repositories/dashboard_repo.dart';
 import 'package:zenan/features/dashboard/domain/repositories/dashboard_repo_interface.dart';
@@ -106,6 +105,7 @@ import 'package:zenan/features/business/domain/reposotories/business_repo_interf
 import 'package:zenan/features/business/domain/services/business_service.dart';
 import 'package:zenan/features/business/domain/services/business_service_interface.dart';
 import 'package:zenan/features/category/controllers/category_controller.dart';
+import 'package:zenan/features/category/controllers/fason_category_controller.dart';
 import 'package:zenan/features/category/domain/reposotories/category_repository.dart';
 import 'package:zenan/features/category/domain/reposotories/category_repository_interface.dart';
 import 'package:zenan/features/category/domain/services/category_service.dart';
